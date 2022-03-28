@@ -47,12 +47,12 @@ bool runMainMenu(CaesarCipher &cipher){
 				std::cout << "Key cannot be 0! This would not be encryption!" << std::endl;
 				break;
 			}
-			else if (keyValue < 0) {//math is correct but problems persist. if -5 is entered then F(5th letter of alphabet) appears as a blank???complains about fancy latin f sometimes???
-				cipher.setKey((-1 * currentKey) + 1);
+			else if (keyValue < 0) { //key = 4
+				cipher.setKey((-1 * currentKey) + 1); //key = -3 or 34
 				std::cout << "Key temp set to:" << cipher.getKey() << std::endl;
 				cipher.encrypt(cipher.getEncryptedText());
 				std::cout << "Shifted to " << cipher.getEncryptedText() << std::endl;
-				cipher.setKey(keyValue);
+				cipher.setKey(keyValue -1);
 				cipher.encrypt(cipher.getEncryptedText());
 			}
 			std::cout << "Message re-encrypted with new key" << std::endl;

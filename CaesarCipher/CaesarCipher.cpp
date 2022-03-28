@@ -62,18 +62,18 @@ std::string CaesarCipher::encrypt(std::string stringToEncrypt) {
 		std::string newlyEncrypted{};
 		for (std::string::iterator it = stringToEncrypt.begin(); it != stringToEncrypt.end();it++) {
 			for (int i = 0;i < getAcceptedCharsLength();i++) {//arrayLength
-				if (*it == (getAcceptedChars()[i]) && i <= (getAcceptedCharsLength() - getKey())) {//edge cases are arrayLength - key
-				//std::cout<<"was "<<*it<<" and is now encrypted to ";
-					//*it = getAcceptedChars()[i+(getKey())];
+				if (*it == (getAcceptedChars()[i]) && i < (getAcceptedCharsLength() - getKey())) {//edge cases are arrayLength - key
+					std::cout << "was " << *it << "[" << i << "] and is now encrypted to ";
+					*it = getAcceptedChars()[i+(getKey())];
 					newlyEncrypted += (getAcceptedChars()[i + (getKey())]);
-					//std::cout<<*it<<std::endl;
+					std::cout<<*it<<"["<< i + (getKey())<<"]"<<std::endl;
 					break;
 				}
-				else if (*it == (getAcceptedChars()[i]) && i > (getAcceptedCharsLength() - getKey())) {
-					//std::cout<<"was "<<*it<<" and is now encrypted to ";
-					//*it = getAcceptedChars()[i-((getAcceptedCharsLength()+1)-getKey())]; 
-					newlyEncrypted += (getAcceptedChars()[i - ((getAcceptedCharsLength() + 1) - getKey())]); //  i-((arraylength+1)-key)
-					//std::cout<<*it<<std::endl;
+				else if (*it == (getAcceptedChars()[i]) && i >= (getAcceptedCharsLength() - getKey())) {
+					std::cout << "was " << *it << "[" << i << "] and is now encrypted to ";
+					*it = getAcceptedChars()[(getAcceptedCharsLength() - i - getKey()) * -1];
+					newlyEncrypted += (getAcceptedCharsLength() - i - getKey()) * -1;
+					std::cout<<*it<<"["<< (getAcceptedCharsLength() - i - getKey()) * -1<<"]"<<std::endl;
 				}
 			}
 		}
