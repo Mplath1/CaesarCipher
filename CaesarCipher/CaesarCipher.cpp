@@ -141,6 +141,7 @@ void CaesarCipher::convertToUpperCase(std::string &input) {
 void CaesarCipher::queryForMessage(std::string prompt) {
 	std::cout << prompt << std::endl;
 	std::string input;
+	std::cin.ignore();
 	std::getline(std::cin, input);
 	encrypt(input);
 }

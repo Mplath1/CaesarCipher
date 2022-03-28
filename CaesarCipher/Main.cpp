@@ -58,7 +58,7 @@ bool runMainMenu(CaesarCipher &cipher){
 			std::cout << "Message re-encrypted with new key" << std::endl;
 			break;
 		case 4:
-			cipher.queryForMessage("Please enter a message:"); //TODO: MENU SKIPS BEFORE NEW MESSAGE CAN BE ENTERED
+			cipher.queryForMessage("Please enter a message:");
 			break;
 		case 5:
 			std::cout << "Exiting Caesars Cipher..." << std::endl;
