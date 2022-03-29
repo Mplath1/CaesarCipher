@@ -38,8 +38,14 @@ bool runMainMenu(CaesarCipher &cipher){
 			int keyValue;
 			std::cin >> keyValue;
 			currentKey = cipher.getKey();
-			if (keyValue < cipher.getAcceptedCharsLength() && keyValue>0) { //TODO: issues when key has been set negative and then changed to positive
-				cipher.setKey(std::abs(currentKey - keyValue)); //get difference between current key and new key and temporarily set to key
+			//TODO: issues when key is changed to lesser value than current key. check keyValue against current value here to deteremine logic
+			if (keyValue < cipher.getAcceptedCharsLength() && keyValue>0) {
+				if (currentKey <= keyValue) {
+					cipher.setKey(std::abs(currentKey - keyValue));
+				}
+				else {
+					cipher.setKey(keyValue - currentKey);
+				}//get difference between current key and new key and temporarily set to key
 				cipher.encrypt(cipher.getEncryptedText()); //encrypt text with the difference
 				cipher.setKey(keyValue); //set key to user entered value
 			}
@@ -49,7 +55,7 @@ bool runMainMenu(CaesarCipher &cipher){
 			}
 			else if (keyValue < 0) { 
 				//cipher.setKey((-1 * currentKey) + 1);  //get difference between current key and new key and temporarily set to key
-				cipher.setKey((cipher.getAcceptedCharsLength() + keyValue) - currentKey); //37 - 5 = 32
+				cipher.setKey((cipher.getAcceptedCharsLength() + keyValue) - currentKey);
 				std::cout << "Key temp set to:" << cipher.getKey() << std::endl;
 				cipher.encrypt(cipher.getEncryptedText()); //encrypt text with the difference
 				std::cout << "Shifted to " << cipher.getEncryptedText() << std::endl;
