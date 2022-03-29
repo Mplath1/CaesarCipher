@@ -72,7 +72,7 @@ std::string CaesarCipher::encrypt(std::string stringToEncrypt) {
 				else if (*it == (getAcceptedChars()[i]) && i >= (getAcceptedCharsLength() - getKey())) {
 					std::cout << "was " << *it << "[" << i << "] and is now encrypted to ";
 					*it = getAcceptedChars()[(getAcceptedCharsLength() - i - getKey()) * -1];
-					newlyEncrypted += (getAcceptedCharsLength() - i - getKey()) * -1;
+					newlyEncrypted += getAcceptedChars()[(getAcceptedCharsLength() - i - getKey()) * -1];
 					std::cout<<*it<<"["<< (getAcceptedCharsLength() - i - getKey()) * -1<<"]"<<std::endl;
 				}
 			}
@@ -88,20 +88,21 @@ std::string CaesarCipher::encrypt(std::string stringToEncrypt) {
 //returns plaintext version of encrypted text
 std::string CaesarCipher::decrypt() {
 	std::string newlyDecrypted{};
-	for (std::string::iterator it = encryptedText.begin(); it != encryptedText.end();it++) {
+	for (std::string::iterator it = encryptedText.begin(); it != encryptedText.end();it++) { //omits last char. possibly alter loop
 		for (int i = 0;i < getAcceptedCharsLength();i++) {
 			if (*it == (getAcceptedChars()[i]) && i > (getKey() - 1)) { //key -1 
 				//std::cout<<"Encrypted as "<<*it<<" and is now decrypted to ";//
-				//*it = getAcceptedChars()[i-(getKey())];//
+				//*it = getAcceptedChars()[i-(getKey())];
 				newlyDecrypted += (getAcceptedChars()[i - getKey()]);
 				//std::cout<<*it<<std::endl;//
 				break;
 			}
 			else if (*it == (getAcceptedChars()[i]) && i <= (getKey() - 1)) {
 				//std::cout<<"Encrypted as "<<*it<<" and is now decrypted to ";//
-				//*it = getAcceptedChars()[i+((getAcceptedCharsLength()+1)-getKey())];// 
+				//*it = getAcceptedChars()[getAcceptedCharsLength() + (i - getKey())];// 
 				//std::cout<<*it<<std::endl;//
-				newlyDecrypted += (getAcceptedChars()[i + ((getAcceptedCharsLength() + 1) - getKey())]); //  i+ ((arraylength+1)-key)
+				//newlyDecrypted += (getAcceptedChars()[i + ((getAcceptedCharsLength() + 1) - getKey())]); //  i+ ((arraylength+1)-key)
+				newlyDecrypted += (getAcceptedChars()[getAcceptedCharsLength() +(i - getKey())]); //need to add +1?
 				break;
 			}
 		}
